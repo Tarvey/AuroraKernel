@@ -1,5 +1,5 @@
 # Aurora Lightweight Kernel
-This is just a simple project that I'm working on, nothing big, might add more.
+This is just a simple project that I'm working on, nothing big, might add more. 
 ## Building
 ### Preparing
 To make it cleaner, add a directory named `bin`.
