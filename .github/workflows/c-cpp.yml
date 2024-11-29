@@ -28,10 +28,9 @@ jobs:
       run: ld -m elf_i386 -T link.ld -o kernel kasm.o kc.o -L/usr/lib32 -lc
 
     - name: Extract Branch Name
-      shell: bash
-      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
       id: extract_branch
-    
+      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -40,13 +39,13 @@ jobs:
       with:
         draft: false
         prerelease: true
-        release_name: ${{ steps.extract_branch.outputs.branch }}
-        tag_name: ${{ steps.extract_branch.outputs.branch }}
+        release_name: ${{ env.branch }}
+        tag_name: ${{ env.branch }}
 
     - name: Upload Artifact to Release
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./kernel
