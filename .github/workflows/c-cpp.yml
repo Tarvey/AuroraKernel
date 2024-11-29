@@ -10,13 +10,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
-            
+
     steps:
     - uses: actions/checkout@v4
     - uses: ilammy/setup-nasm@v1.5.1
     - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y libc6-dev
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libc6-dev-i386 gcc-multilib g++-multilib
 
     - name: makeasm
       run: nasm -f elf32 kernel.asm -o kasm.o
@@ -30,4 +31,3 @@ jobs:
         name: kernel
         path: kernel
         retention-days: 5
-  
