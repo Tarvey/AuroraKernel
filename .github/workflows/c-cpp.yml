@@ -25,9 +25,24 @@ jobs:
       run: gcc -m32 -c kernel.c -o kc.o -lm
     - name: link
       run: ld -m elf_i386 -T link.ld -o kernel kasm.o kc.o -L/usr/lib32 -lc
+    - name: Extract branch name
+      shell: bash
+      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+      id: version
+    
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
         name: kernel
         path: kernel
         retention-days: 5
+    - name: release
+      uses: actions/create-release@v1
+      id: create_release
+      with:
+        draft: false
+        prerelease: true
+        release_name: ${{ steps.version.outputs.branch }}
+        tag_name: ${{ github.ref }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
