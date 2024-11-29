@@ -8,37 +8,30 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y nasm build-essential libc6-dev-i386 gcc-multilib g++-multilib
 
-    - name: makeasm
+    - name: Build Assembly Code
       run: nasm -f elf32 kernel.asm -o kasm.o
-    - name: makec
+
+    - name: Compile C Code
       run: gcc -m32 -c kernel.c -o kc.o -lm
-    - name: link
+
+    - name: Link Objects
       run: ld -m elf_i386 -T link.ld -o kernel kasm.o kc.o -L/usr/lib32 -lc
-    - name: Extract branch name
+
+    - name: Extract Branch Name
       shell: bash
-      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-      id: version
-    - name: Extract branch name
-      shell: bash
-      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
       id: extract_branch
     
-    - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v4
-      with:
-        name: kernel
-        path: kernel
-        retention-days: 5
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -49,3 +42,13 @@ jobs:
         prerelease: true
         release_name: ${{ steps.extract_branch.outputs.branch }}
         tag_name: ${{ steps.extract_branch.outputs.branch }}
+
+    - name: Upload Artifact to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./kernel
+        asset_name: kernel
+        asset_content_type: application/octet-stream
