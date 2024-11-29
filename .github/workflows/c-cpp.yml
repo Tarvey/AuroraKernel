@@ -36,13 +36,13 @@ jobs:
         name: kernel
         path: kernel
         retention-days: 5
-    - name: release
-      uses: actions/create-release@v1
+    - name: Create Release
       id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         draft: false
         prerelease: true
-        release_name: ${{ steps.version.outputs.branch }}
+        release_name: ${{ github.ref }}
         tag_name: ${{ github.ref }}
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
