@@ -1,5 +1,6 @@
 #ifndef aurora_utils
 #define aurora_utils
+const int alk_width = 80; const int alk_height = 25;
 unsigned char VGAC=0x07;
 
 

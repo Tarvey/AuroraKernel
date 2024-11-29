@@ -65,7 +65,7 @@ void ash() {
                             if (index > 2 && my_strcmp(buffer + 2, "panic") == 0) {
                                 alk_panic("triggered"); // Display help if the command is "help"
                             } else if (index > 2 && my_strcmp(buffer + 2, "menu") == 0) {
-                                selectionmenu();
+                                if (handle_input()==2){alk_printf("Good!");}
                             } else if (first_word && my_strcmp(first_word, "setcolor") == 0) {
                                 if (second_word) {
                                     unsigned char color = (unsigned char)hex_to_uchar(second_word);
