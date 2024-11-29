@@ -1,3 +1,5 @@
+#ifndef aurora_utils
+#define aurora_utils
 unsigned char VGAC=0x07;
 
 
@@ -136,3 +138,4 @@ void alk_panic(char *reason)
         }
         
 }
+#endif 

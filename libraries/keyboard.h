@@ -1,3 +1,5 @@
+#ifndef aurora_keyboard
+#define aurora_keyboard
 void outb( unsigned short port, unsigned char val )
 {
    asm volatile("outb %0, %1" : : "a"(val), "Nd"(port) );
@@ -96,3 +98,4 @@ void int_to_string(int num, char *buffer) {
     }
 }
 
+#endif

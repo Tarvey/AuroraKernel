@@ -2,6 +2,7 @@ unsigned char old_VGAC;
 #include "libraries/hextouchar.h"
 #include "libraries/yield.h"
 #include "libraries/aurora_utils.h"
+#include "libraries/select.h"
 void delay();
 int init();
 #include "libraries/keyboard.h" /*Keyboard handling*/
@@ -63,6 +64,8 @@ void ash() {
                             VGAC=old_VGAC;
                             if (index > 2 && my_strcmp(buffer + 2, "panic") == 0) {
                                 alk_panic("triggered"); // Display help if the command is "help"
+                            } else if (index > 2 && my_strcmp(buffer + 2, "menu") == 0) {
+                                selectionmenu();
                             } else if (first_word && my_strcmp(first_word, "setcolor") == 0) {
                                 if (second_word) {
                                     unsigned char color = (unsigned char)hex_to_uchar(second_word);
