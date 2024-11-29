@@ -1,0 +1,7 @@
+/.vscode
+/backups
+/bin
+/docs
+/source-utils
+/backup.sh
+/debug.sh
