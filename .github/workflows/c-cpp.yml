@@ -27,9 +27,9 @@ jobs:
     - name: Link Objects
       run: ld -m elf_i386 -T link.ld -o kernel kasm.o kc.o -L/usr/lib32 -lc
 
-    - name: Extract Branch Name
-      id: extract_branch
-      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
+    - name: Extract Commit ID
+      id: extract_commit
+      run: echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
     - name: Create Release
       id: create_release
@@ -39,8 +39,8 @@ jobs:
       with:
         draft: false
         prerelease: true
-        release_name: ${{ env.branch }}
-        tag_name: ${{ env.branch }}
+        release_name: ${{ env.COMMIT_ID }}
+        tag_name: ${{ env.COMMIT_ID }}
 
     - name: Upload Artifact to Release
       uses: actions/upload-release-asset@v1
