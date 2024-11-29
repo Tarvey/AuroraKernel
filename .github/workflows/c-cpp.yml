@@ -13,11 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: ilammy/setup-nasm@v1.5.1
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential libc6-dev-i386 gcc-multilib g++-multilib
+        sudo apt-get install -y nasm build-essential libc6-dev-i386 gcc-multilib g++-multilib
 
     - name: makeasm
       run: nasm -f elf32 kernel.asm -o kasm.o
@@ -29,6 +28,10 @@ jobs:
       shell: bash
       run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
       id: version
+    - name: Extract branch name
+      shell: bash
+      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+      id: extract_branch
     
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
@@ -44,5 +47,5 @@ jobs:
       with:
         draft: false
         prerelease: true
-        release_name: ${{ github.ref }}
+        release_name: ${{ steps.extract_branch.outputs.branch }}
         tag_name: ${{ github.ref }}
