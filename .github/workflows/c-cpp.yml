@@ -48,4 +48,4 @@ jobs:
         draft: false
         prerelease: true
         release_name: ${{ steps.extract_branch.outputs.branch }}
-        tag_name: ${{ github.ref }}
+        tag_name: ${{ steps.extract_branch.outputs.branch }}
