@@ -16,7 +16,7 @@ Compile the main assembly file: `nasm -f elf32 ../kernel.asm -o kasm.o`
 
 Compile the kernel: `gcc -m32 -c ../kernel.c -o kc.o -lm`: Linux, ?: Windows
 
-Link the assembly and compiled kernel: `ld -m elf_i386 -T ../link.ld -o kernel kasm.o kc.o $addargs`
+Link the assembly and compiled kernel: `ld -m elf_i386 -T ../link.ld -o kernel kasm.o kc.o -L/usr/lib32 -lc $addargs`
 ### Test
 Remove kasm.o and kc.o, they are not needed now.
 
