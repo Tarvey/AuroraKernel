@@ -15,13 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: ilammy/setup-nasm@v1.5.1
-    - name: makebindir
-      run: mkdir bin
-    - name: gotobin
-      run: cd bin
     - name: makeasm
-      run: nasm -f elf32 ../kernel.asm -o kasm.o
+      run: nasm -f elf32 kernel.asm -o kasm.o
     - name: makec
-      run: gcc -m32 -c ../kernel.c -o kc.o -lm
+      run: gcc -m32 -c kernel.c -o kc.o -lm
     - name: link
-      run: ld -m elf_i386 -T ../link.ld -o kernel kasm.o kc.o
+      run: ld -m elf_i386 -T link.ld -o kernel kasm.o kc.o
