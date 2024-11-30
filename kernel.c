@@ -132,9 +132,26 @@ void alk_boot() {
     screen_width = 60;
     screen_height=40;
     alk_clear_screen();
-    VGAC=0x0c;
-    alk_printf("                      &&@*\n                   @@&@@@\n                 @@@, ,@@   ,&&&@&*\n               &@@    @%       #&\n               &&&    ,&        &@\n              &@@     @       #@@\n             ,@&     *      ,@@*   \n        &@@(  &     *     @@@     \n      %@&             &&@@\n      @#              ,\n      @.\n       @       %&*      #&&@@\n         @  &              .&@&@\n          .   &&@    &&      @@@@\n            @@.         ,     @@@@\n            &@               %@&@@@\n         ,@@@@             @     @@\n      @&&@@@@@@&@@@             @&");
+    VGAC=0x09;
     
+    alk_printf_legacy("                          ##########             ",0);
+    alk_printf_legacy("                      ##################         ",1);
+    alk_printf_legacy("                      ##################         ",2);
+    alk_printf_legacy("                      ####          ####         ",3);
+    alk_printf_legacy("                  ####                           ",4);
+    alk_printf_legacy("                  ####                           ",5);
+    alk_printf_legacy("                  ####                           ",6); VGAC=0x0c;
+    alk_printf_legacy("              ####           ####           #### ",7);
+    alk_printf_legacy("              ####           #!!#           #### ",8);
+    alk_printf_legacy("              ####           #!!#           #### ",9);
+    alk_printf_legacy("              ####           ####           #### ",10); VGAC=0x0a;
+    alk_printf_legacy("                                        ####     ",11);
+    alk_printf_legacy("                                        ####     ",12);
+    alk_printf_legacy("                                        ####     ",13);
+    alk_printf_legacy("                      ####          ####         ",14);
+    alk_printf_legacy("                      ##################         ",15);
+    alk_printf_legacy("                      ##################         ",16);
+    alk_printf_legacy("                          ##########             ",17);
     MENU_SIZE = 2;
 
     // Update the global menu array directly
