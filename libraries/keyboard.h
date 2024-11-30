@@ -97,5 +97,15 @@ void int_to_string(int num, char *buffer) {
         end--;
     }
 }
+void set_cursor_position(int row, int col) {
+    int position = (row * 80) + col;
 
+    // Send the high byte to the VGA control register
+    outb(0x3D4, 14);
+    outb(0x3D5, (position >> 8) & 0xFF);
+
+    // Send the low byte to the VGA control register
+    outb(0x3D4, 15);
+    outb(0x3D5, position & 0xFF);
+}
 #endif

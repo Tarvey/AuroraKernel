@@ -65,7 +65,7 @@ void ash() {
                             if (index > 2 && my_strcmp(buffer + 2, "panic") == 0) {
                                 alk_panic("triggered"); // Display help if the command is "help"
                             } else if (index > 2 && my_strcmp(buffer + 2, "menu") == 0) {
-                                if (handle_input()==2){alk_printf("Good!");}
+                                if (handle_input(1)==2){alk_printf("Good!");}
                             } else if (first_word && my_strcmp(first_word, "setcolor") == 0) {
                                 if (second_word) {
                                     unsigned char color = (unsigned char)hex_to_uchar(second_word);
@@ -127,6 +127,24 @@ void alk()
         init();
         alk_panic("init");
 };
+void alk_boot() {
+    set_cursor_position(16,1);
+    screen_width = 30;
+    alk_clear_screen();
+    MENU_SIZE = 2;
+
+    // Update the global menu array directly
+    menu[0].text = "Boot To Aurora";
+    menu[1].text = "Halt";
+
+    display_menu();
+    if (handle_input(0) == 1) {
+        alk();
+    } else {
+        alk_panic("init");
+    }
+}
+
 
 
 

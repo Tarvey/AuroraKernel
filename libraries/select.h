@@ -3,9 +3,9 @@
 typedef struct {
     const char *text;
 } MenuItem;
-
-#define MENU_SIZE 3
-MenuItem menu[MENU_SIZE] = {
+int screen_width=60;
+int screen_height=24;
+MenuItem menu[3] = {
     {"Option 1"},
     {"Option 2"},
     {"Option 3"}
@@ -13,12 +13,11 @@ MenuItem menu[MENU_SIZE] = {
 
 int current_selection = 0;
 
-
+int MENU_SIZE=3;
 unsigned char OLDVGAC;
 void display_menu() {
     alk_clear_screen();
-    const int screen_width = 60;
-    const int screen_height = 24;
+    
     const int menu_height = MENU_SIZE;
     const int start_row = (screen_height - menu_height) / 2; // Center vertically
 
@@ -63,7 +62,7 @@ void display_menu() {
 }
 
 
-int handle_input() {
+int handle_input(int fix) {
     char buffer[256];
     int index = 2;
     buffer[0] = '>';
@@ -86,12 +85,18 @@ int handle_input() {
                         
                         // Handle menu selection
                         if (buffer[2] == '\0') { // Enter key pressed
-                            if (displayedmenu==0) {
+                            if (fix==1){
+                                if (displayedmenu==0) {
                                 displayedmenu=1;
-                            }else if (displayedmenu==1){
+                                } else if (displayedmenu==1){
+                                    alk_clear_screen();
+                                    return current_selection+1;
+                                }
+                            } else {
                                 alk_clear_screen();
                                 return current_selection+1;
                             }
+                            
                             
                         }
 
@@ -117,8 +122,3 @@ int handle_input() {
 
 
 
-
-void selectionmenu()
-{
-    handle_input();
-}

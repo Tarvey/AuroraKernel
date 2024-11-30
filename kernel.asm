@@ -10,11 +10,11 @@ section .text
 	dd - (0x1BADB002 + 0x00)	;checksum. m+f+c should be zero
 
 global start
-extern alk	;alk_main is defined in the kernel.c file
+extern alk_boot	;alk_main is defined in the kernel.c file
 
 start:
 	cli  ; stop interrupts
 
-	call alk
+	call alk_boot
 
 	hlt ; halt the CPU
