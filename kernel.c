@@ -128,9 +128,13 @@ void alk()
         alk_panic("init");
 };
 void alk_boot() {
-    set_cursor_position(16,1);
-    screen_width = 30;
+    set_cursor_position(21,0);
+    screen_width = 60;
+    screen_height=40;
     alk_clear_screen();
+    VGAC=0x0c;
+    alk_printf("                      &&@*\n                   @@&@@@\n                 @@@, ,@@   ,&&&@&*\n               &@@    @%       #&\n               &&&    ,&        &@\n              &@@     @       #@@\n             ,@&     *      ,@@*   \n        &@@(  &     *     @@@     \n      %@&             &&@@\n      @#              ,\n      @.\n       @       %&*      #&&@@\n         @  &              .&@&@\n          .   &&@    &&      @@@@\n            @@.         ,     @@@@\n            &@               %@&@@@\n         ,@@@@             @     @@\n      @&&@@@@@@&@@@             @&");
+    
     MENU_SIZE = 2;
 
     // Update the global menu array directly

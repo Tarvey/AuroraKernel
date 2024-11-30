@@ -16,7 +16,6 @@ int current_selection = 0;
 int MENU_SIZE=3;
 unsigned char OLDVGAC;
 void display_menu() {
-    alk_clear_screen();
     
     const int menu_height = MENU_SIZE;
     const int start_row = (screen_height - menu_height) / 2; // Center vertically
