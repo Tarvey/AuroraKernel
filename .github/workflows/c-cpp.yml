@@ -1,10 +1,19 @@
 name: C/C++ CI
-
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+    paths:
+      - '**/*.c'
+      - '**/*.h'
+      - '**/*.asm'
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+    paths:
+      - '**/*.c'
+      - '**/*.h'
+      - '**/*.asm'
 
 jobs:
   build:
